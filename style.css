@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: royalblue;
+}
+
+.game-board {
+  display: grid;
+  background-color: white;
+  width: 100vmin;
+  height: 100vmin;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+}
+
+.sky {
+  background-color: lightblue;
+}
+
+.cloud {
+  background-color: white;
+}
+.grass {
+  background: url(/images/grass.jpg) no-repeat center center/cover;
+}
+
+.tree {
+  background: url(/images/tree.jpg) no-repeat center center/cover;
+}
+
+.trunk {
+  background: url(/images/trunk.jpg) no-repeat center center/cover;
+}
+
+.stone {
+  background: url(/images/stone.jpg) no-repeat center center/cover;
+}
+
+.dirt {
+  background: url(/images/dirt.jpg) no-repeat center center/cover;
+}
+
+.sidebar {
+  background-color: black;
+  width: 20vmin;
+  height: 100vmin;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.sidebar__tools {
+  display: flex;
+  margin-top: 100px;
+  flex-direction: column;
+}
+
+.tool {
+  height: 100px;
+  width: 70px;
+  border: 1px solid white;
+  margin-bottom: 20px;
+}
+
+.pickaxe {
+  background: url(/images/pickaxe.png) no-repeat center center/cover;
+}
+.shovel {
+  background: url(/images/shovel.png) no-repeat center center/cover;
+}
+.axe {
+  background: url(/images/axe.png) no-repeat center center/cover;
+}
+
+.inventory {
+  height: 40px;
+  width: 40px;
+  border: 1px solid white;
+  margin: 0 auto;
+}
+
+.selected-tool {
+  background-color: royalblue;
+  border: transparent;
+}

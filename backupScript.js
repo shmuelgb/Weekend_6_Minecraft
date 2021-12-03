@@ -17,9 +17,9 @@ const initialMatrix = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0],
@@ -87,7 +87,6 @@ function gridClick(e) {
             return pickableMatirial.num == oldMatirial;
           })
         ) {
-          inventoryEl.classList.remove(inventory.cssClass);
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
           inventoryEl.classList.add(inventory.cssClass);
@@ -99,7 +98,6 @@ function gridClick(e) {
             return pickableMatirial.num == oldMatirial;
           })
         ) {
-          inventoryEl.classList.remove(inventory.cssClass);
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
           inventoryEl.classList.add(inventory.cssClass);

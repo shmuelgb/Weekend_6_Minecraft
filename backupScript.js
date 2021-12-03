@@ -38,6 +38,7 @@ const initialMatrix = [
 const game = document.querySelector(".game-board");
 const tools = document.querySelectorAll(".tool");
 const inventoryEl = document.querySelector(".inventory");
+let lastToolEl;
 
 for (let row = 0; row < initialMatrix.length; row++) {
   for (let col = 0; col < initialMatrix.length; col++) {
@@ -114,6 +115,7 @@ function gridClick(e) {
         break;
     }
   } else {
+    inventoryEl.classList.toggle(inventory.cssClass);
     invertDiv(e.target, inventory);
   }
 }
@@ -128,11 +130,10 @@ function invertDiv(oldBlock, newBlock) {
 
 tools.forEach((tool) => {
   tool.addEventListener("click", () => {
+    if (lastToolEl) lastToolEl.classList.toggle("selected-tool");
     tool.classList.toggle("selected-tool");
     selectedTool = getToolByCode(parseInt(tool.dataset.tool));
-    // console.log(tool.dataset.tool);
-    // console.log(selectedTool);
-    // console.log(getToolByCode(1));
+    lastToolEl = tool;
   });
 });
 function getMatirialByCode(num) {

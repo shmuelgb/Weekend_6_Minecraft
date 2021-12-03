@@ -86,7 +86,7 @@ function gridClick(e) {
           })
         ) {
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
-          invertDiv(e.target, SKY_EL);
+          // invertDiv(e.target, SKY_EL);
           console.log(inventory);
           // inventoryEl.classList.add(inventory.cssClass);
         }
@@ -124,11 +124,10 @@ function invertDiv(oldBlock, newBlock) {
 
 tools.forEach((tool) => {
   tool.addEventListener("click", () => {
+    if (selectedTool) selectedTool.classList.toggle("selected-tool");
+
     tool.classList.toggle("selected-tool");
     selectedTool = getToolByCode(parseInt(tool.dataset.tool));
-    // console.log(tool.dataset.tool);
-    // console.log(selectedTool);
-    // console.log(getToolByCode(1));
   });
 });
 function getMatirialByCode(num) {

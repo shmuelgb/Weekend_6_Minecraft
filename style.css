@@ -99,3 +99,22 @@
   background-color: royalblue;
   border: transparent;
 }
+
+form {
+  text-align: center;
+}
+
+form input {
+  margin-top: 20px;
+  padding: 5px 20px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  border: white 1px solid;
+  opacity: 0.8;
+}
+
+form input:hover {
+  cursor: pointer;
+  opacity: 1;
+}

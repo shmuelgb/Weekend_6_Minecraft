@@ -87,8 +87,7 @@ function gridClick(e) {
         ) {
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
-          console.log(inventory);
-          // inventoryEl.classList.add(inventory.cssClass);
+          inventoryEl.classList.add(inventory.cssClass);
         }
         break;
       case shovel:
@@ -99,6 +98,7 @@ function gridClick(e) {
         ) {
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
+          inventoryEl.classList.add(inventory.cssClass);
         }
         break;
       case axe:
@@ -109,6 +109,7 @@ function gridClick(e) {
         ) {
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
+          inventoryEl.classList.add(inventory.cssClass);
         }
         break;
     }
@@ -118,8 +119,11 @@ function gridClick(e) {
 }
 
 function invertDiv(oldBlock, newBlock) {
-  if (newBlock) oldBlock.setAttribute("class", newBlock.cssClass);
-  inventory = null;
+  if (newBlock) {
+    oldBlock.setAttribute("class", newBlock.cssClass);
+    oldBlock.dataset.matirial = newBlock.num;
+  }
+  if (newBlock !== SKY_EL) inventory = null;
 }
 
 tools.forEach((tool) => {

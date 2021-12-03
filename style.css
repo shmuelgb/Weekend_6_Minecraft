@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .container {
   display: flex;
   justify-content: center;
@@ -22,6 +27,7 @@
 .cloud {
   background-color: white;
 }
+
 .grass {
   background: url(/images/grass.jpg) no-repeat center center/cover;
 }
@@ -40,6 +46,10 @@
 
 .dirt {
   background: url(/images/dirt.jpg) no-repeat center center/cover;
+}
+
+.game-board div:hover {
+  border: 1px dotted white;
 }
 
 .sidebar {
@@ -79,6 +89,10 @@
   width: 40px;
   border: 1px solid white;
   margin: 0 auto;
+}
+
+.inventory-preesed {
+  border: 2px solid blue;
 }
 
 .selected-tool {

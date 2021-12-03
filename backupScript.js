@@ -38,6 +38,7 @@ const initialMatrix = [
 const game = document.querySelector(".game-board");
 const tools = document.querySelectorAll(".tool");
 const inventoryEl = document.querySelector(".inventory");
+let inventoryPressed = false;
 let lastToolEl;
 
 for (let row = 0; row < initialMatrix.length; row++) {
@@ -78,7 +79,7 @@ function createElement(type) {
 
 function gridClick(e) {
   const oldMatirial = e.target.dataset.matirial;
-  if (!inventory) {
+  if (!inventoryPressed) {
     switch (selectedTool) {
       case pickaxe:
         if (
@@ -86,6 +87,7 @@ function gridClick(e) {
             return pickableMatirial.num == oldMatirial;
           })
         ) {
+          inventoryEl.classList.remove(inventory.cssClass);
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
           inventoryEl.classList.add(inventory.cssClass);
@@ -97,6 +99,7 @@ function gridClick(e) {
             return pickableMatirial.num == oldMatirial;
           })
         ) {
+          inventoryEl.classList.remove(inventory.cssClass);
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
           inventoryEl.classList.add(inventory.cssClass);
@@ -114,9 +117,11 @@ function gridClick(e) {
         }
         break;
     }
-  } else {
+  } else if (inventory) {
     inventoryEl.classList.toggle(inventory.cssClass);
     invertDiv(e.target, inventory);
+    inventoryEl.classList.toggle("inventory-preesed");
+    inventoryPressed = false;
   }
 }
 
@@ -128,12 +133,20 @@ function invertDiv(oldBlock, newBlock) {
   if (newBlock !== SKY_EL) inventory = null;
 }
 
+inventoryEl.addEventListener("click", () => {
+  inventoryEl.classList.toggle("inventory-preesed");
+  if (inventoryPressed) inventoryPressed = false;
+  else inventoryPressed = true;
+});
+
 tools.forEach((tool) => {
   tool.addEventListener("click", () => {
     if (lastToolEl) lastToolEl.classList.toggle("selected-tool");
     tool.classList.toggle("selected-tool");
     selectedTool = getToolByCode(parseInt(tool.dataset.tool));
     lastToolEl = tool;
+    inventoryEl.classList.remove("inventory-preesed");
+    inventoryPressed = false;
   });
 });
 function getMatirialByCode(num) {

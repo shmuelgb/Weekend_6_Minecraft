@@ -38,6 +38,9 @@ const initialMatrix = [
 const game = document.querySelector(".game-board");
 const tools = document.querySelectorAll(".tool");
 const inventoryEl = document.querySelector(".inventory");
+const opening = document.querySelector(".opening");
+const gameContainer = document.querySelector(".container");
+const startBtn = document.querySelector(".opening button");
 let inventoryPressed = false;
 let lastToolEl;
 
@@ -177,3 +180,8 @@ function getToolByCode(num) {
       return axe;
   }
 }
+
+startBtn.addEventListener("click", () => {
+  opening.classList.toggle("display-none");
+  gameContainer.classList.toggle("display-none");
+});

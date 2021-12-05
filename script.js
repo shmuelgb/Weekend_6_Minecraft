@@ -17,9 +17,9 @@ const initialMatrix = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0],
@@ -38,6 +38,11 @@ const initialMatrix = [
 const game = document.querySelector(".game-board");
 const tools = document.querySelectorAll(".tool");
 const inventoryEl = document.querySelector(".inventory");
+const opening = document.querySelector(".opening");
+const gameContainer = document.querySelector(".container");
+const startBtn = document.querySelector(".opening button");
+let inventoryPressed = false;
+let lastToolEl;
 
 for (let row = 0; row < initialMatrix.length; row++) {
   for (let col = 0; col < initialMatrix.length; col++) {
@@ -77,7 +82,7 @@ function createElement(type) {
 
 function gridClick(e) {
   const oldMatirial = e.target.dataset.matirial;
-  if (!inventory) {
+  if (!inventoryPressed) {
     switch (selectedTool) {
       case pickaxe:
         if (
@@ -86,9 +91,8 @@ function gridClick(e) {
           })
         ) {
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
-          // invertDiv(e.target, SKY_EL);
-          console.log(inventory);
-          // inventoryEl.classList.add(inventory.cssClass);
+          invertDiv(e.target, SKY_EL);
+          inventoryEl.setAttribute("class", `inventory ${inventory.cssClass}`);
         }
         break;
       case shovel:
@@ -99,6 +103,7 @@ function gridClick(e) {
         ) {
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
+          inventoryEl.setAttribute("class", `inventory ${inventory.cssClass}`);
         }
         break;
       case axe:
@@ -109,25 +114,40 @@ function gridClick(e) {
         ) {
           inventory = getMatirialByCode(parseInt(e.target.dataset.matirial));
           invertDiv(e.target, SKY_EL);
+          inventoryEl.setAttribute("class", `inventory ${inventory.cssClass}`);
         }
         break;
     }
-  } else {
+  } else if (inventory) {
+    inventoryEl.classList.toggle(inventory.cssClass);
     invertDiv(e.target, inventory);
+    inventoryEl.classList.toggle("inventory-preesed");
+    inventoryPressed = false;
   }
 }
 
 function invertDiv(oldBlock, newBlock) {
-  if (newBlock) oldBlock.setAttribute("class", newBlock.cssClass);
-  inventory = null;
+  if (newBlock) {
+    oldBlock.setAttribute("class", newBlock.cssClass);
+    oldBlock.dataset.matirial = newBlock.num;
+  }
+  if (newBlock !== SKY_EL) inventory = null;
 }
+
+inventoryEl.addEventListener("click", () => {
+  inventoryEl.classList.toggle("inventory-preesed");
+  if (inventoryPressed) inventoryPressed = false;
+  else inventoryPressed = true;
+});
 
 tools.forEach((tool) => {
   tool.addEventListener("click", () => {
-    if (selectedTool) selectedTool.classList.toggle("selected-tool");
-
+    if (lastToolEl) lastToolEl.classList.toggle("selected-tool");
     tool.classList.toggle("selected-tool");
     selectedTool = getToolByCode(parseInt(tool.dataset.tool));
+    lastToolEl = tool;
+    inventoryEl.classList.remove("inventory-preesed");
+    inventoryPressed = false;
   });
 });
 function getMatirialByCode(num) {
@@ -160,3 +180,8 @@ function getToolByCode(num) {
       return axe;
   }
 }
+
+startBtn.addEventListener("click", () => {
+  opening.classList.toggle("display-none");
+  gameContainer.classList.toggle("display-none");
+});
